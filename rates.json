@@ -1,0 +1,196 @@
+{
+  "_README": [
+    "★★ 이 파일이 이 앱 유지보수 전략의 핵심이다 ★★",
+    "",
+    "[무엇인가]",
+    "  법정 요율, 복무기간, 면책 문구, 앱 공지처럼 '바뀌지만 코드는 아닌' 값을 모아둔 파일.",
+    "  앱은 실행 시 이 파일을 원격으로 받아 캐시한다.",
+    "",
+    "[어디에 올리나]",
+    "  GitHub 공개 저장소에 올리고 raw URL을 RatesRepository.REMOTE_URL에 넣는다.",
+    "  예: https://raw.githubusercontent.com/<계정>/dcalc-config/main/rates.json",
+    "  서버가 필요 없고 비용도 0이다. CDN 캐시 때문에 반영까지 최대 5분 걸릴 수 있다.",
+    "",
+    "[왜 이렇게 하나]",
+    "  법이 바뀔 때마다 앱을 업데이트하면 (1) 코드 수정 (2) 빌드 (3) 스토어 심사 2~7일",
+    "  (4) 사용자가 업데이트할 때까지 대기 — 이 네 단계가 매번 발생한다.",
+    "  이 파일만 고치면 네 단계가 전부 사라지고 24시간 내 전 사용자에게 반영된다.",
+    "",
+    "[주의사항]",
+    "  - JSON은 주석을 지원하지 않으므로 '_'로 시작하는 키를 주석 대용으로 쓴다.",
+    "    RatesRepository의 Json 설정이 ignoreUnknownKeys = true라 파싱에 영향이 없다.",
+    "  - 기존 필드를 '삭제'하거나 '이름 변경'하면 구버전 앱이 파싱에 실패한다.",
+    "    필드 추가는 안전하지만 삭제는 절대 금지. 안 쓰는 필드는 그냥 남겨둔다.",
+    "  - 수정 후 반드시 JSON 문법 검사를 할 것. 깨진 JSON을 올려도 기존 사용자는 캐시로",
+    "    버티지만, 신규 설치 사용자는 assets 번들(오래된 값)을 쓰게 된다.",
+    "  - 값을 바꿀 때는 updatedAt도 같이 고친다. 앱 화면에 '기준일'로 노출된다.",
+    "",
+    "[갱신 캘린더]",
+    "  매년 1월  → insurance (4대보험 요율), minimumWage 시행",
+    "  매년 8월  → minimumWage (다음 해 고시값 확인)",
+    "  수시      → military (국방부 복무기간 개편), labor (근로기준법 개정)"
+  ],
+
+  "version": 2,
+  "updatedAt": "2026-09-22",
+
+  "_app": [
+    "앱 전역 제어. 코드 배포 없이 사용자에게 메시지를 띄우거나 구버전을 막는다.",
+    "minSupportedVersionCode: 이 값 미만이면 강제 업데이트 안내를 띄운다.",
+    "  치명적 계산 오류를 배포했을 때 구버전 사용을 차단하는 안전장치다.",
+    "  0으로 두면 아무도 차단하지 않는다. 평상시에는 0을 유지할 것.",
+    "notice: 공지 배너. enabled를 false로 두면 표시되지 않는다."
+  ],
+  "app": {
+    "minSupportedVersionCode": 0,
+    "latestVersionCode": 1,
+    "notice": {
+      "enabled": false,
+      "title": "",
+      "message": "",
+      "linkUrl": ""
+    }
+  },
+
+  "_military": [
+    "군종별 복무기간과 진급 시점.",
+    "months: 총 복무개월. 전역일 = 입대일 + months - 1일",
+    "ranks[].cumulativeMonths: 입대일 기준 누적 개월수. 해당 시점에 그 계급이 된다.",
+    "  예) 이병 0, 일병 2 → 입대 후 2개월에 일병 진급",
+    "⚠️ 복무기간은 국방부 정책에 따라 바뀐다. 개편 발표 시 즉시 반영할 것.",
+    "⚠️ 진급일은 통상 해당 월 1일자로 일괄 시행된다. 앱은 일자 기준 근사치를 보여주므로",
+    "   화면에 안내 문구(disclaimers.military)를 함께 노출한다."
+  ],
+  "military": [
+    {
+      "id": "army", "name": "육군", "months": 18,
+      "ranks": [
+        { "name": "이병", "cumulativeMonths": 0 },
+        { "name": "일병", "cumulativeMonths": 2 },
+        { "name": "상병", "cumulativeMonths": 8 },
+        { "name": "병장", "cumulativeMonths": 14 }
+      ]
+    },
+    {
+      "id": "navy", "name": "해군", "months": 20,
+      "ranks": [
+        { "name": "이병", "cumulativeMonths": 0 },
+        { "name": "일병", "cumulativeMonths": 2 },
+        { "name": "상병", "cumulativeMonths": 8 },
+        { "name": "병장", "cumulativeMonths": 14 }
+      ]
+    },
+    {
+      "id": "airforce", "name": "공군", "months": 21,
+      "ranks": [
+        { "name": "이병", "cumulativeMonths": 0 },
+        { "name": "일병", "cumulativeMonths": 2 },
+        { "name": "상병", "cumulativeMonths": 8 },
+        { "name": "병장", "cumulativeMonths": 14 }
+      ]
+    },
+    {
+      "id": "marine", "name": "해병대", "months": 18,
+      "ranks": [
+        { "name": "이병", "cumulativeMonths": 0 },
+        { "name": "일병", "cumulativeMonths": 2 },
+        { "name": "상병", "cumulativeMonths": 8 },
+        { "name": "병장", "cumulativeMonths": 14 }
+      ]
+    },
+    {
+      "id": "social", "name": "사회복무요원", "months": 21,
+      "ranks": [ { "name": "복무중", "cumulativeMonths": 0 } ]
+    }
+  ],
+
+  "_insurance": [
+    "4대보험 근로자 부담분 (%). 매년 1월 갱신.",
+    "출처: 국민연금공단 / 국민건강보험공단 / 근로복지공단 고시",
+    "⚠️ longTermCare(장기요양)만 기준이 다르다. 급여가 아니라 '건강보험료' 대비 비율이다.",
+    "⚠️ 국민연금에는 기준소득월액 상·하한이 있어 고소득자는 실제 공제액이 더 적다.",
+    "   앱은 단순 계산만 하고 disclaimers.insurance로 안내한다."
+  ],
+  "insurance": {
+    "pension": 4.5,
+    "health": 3.545,
+    "longTermCare": 12.95,
+    "employment": 0.9
+  },
+
+  "_minimumWage": [
+    "최저임금. 매년 8월 고시 → 다음 해 1월 1일 시행.",
+    "8월에 고시가 나오더라도 시행일(1월 1일)에 맞춰 교체한다.",
+    "monthlyHours: 월 소정근로시간. 주 40시간 기준 209시간이 관행.",
+    "  계산식 = (40시간 + 주휴 8시간) × 365일 ÷ 7일 ÷ 12개월 ≒ 209"
+  ],
+  "minimumWage": {
+    "year": 2026,
+    "hourly": 10320,
+    "monthlyHours": 209.0
+  },
+
+  "_labor": [
+    "근로기준법 기반 산정 규칙. 개정이 드물어 자주 바뀌지는 않는다.",
+    "severanceAverageWageMonths: 평균임금 산정 개월수 (근로기준법상 3개월)",
+    "annualLeave.firstYearMax: 1년 미만 근로자의 최대 연차 (월 1일씩, 최대 11일)",
+    "annualLeave.baseDays: 1년 이상 기본 연차",
+    "annualLeave.extraStartYear / extraCycleYears: 3년차부터 2년마다 1일 가산",
+    "annualLeave.maxDays: 가산 상한",
+    "weeklyHoliday.minHours: 주휴수당 발생 최소 주 근로시간",
+    "weeklyHoliday.standardHours / paidHours: 주 40시간 만근 시 주휴 8시간"
+  ],
+  "labor": {
+    "severanceAverageWageMonths": 3,
+    "annualLeave": {
+      "firstYearMax": 11,
+      "baseDays": 15,
+      "extraStartYear": 3,
+      "extraCycleYears": 2,
+      "maxDays": 25
+    },
+    "weeklyHoliday": {
+      "minHours": 15.0,
+      "standardHours": 40.0,
+      "paidHours": 8.0
+    }
+  },
+
+  "_savings": [
+    "이자소득 과세 구분 (%).",
+    "taxNormal: 일반과세 = 소득세 14% + 지방소득세 1.4%",
+    "taxPreferred: 세금우대 (조합예탁금 등)",
+    "비과세(0%)는 코드 상수라 여기에 둘 필요가 없다."
+  ],
+  "savings": {
+    "taxNormal": 15.4,
+    "taxPreferred": 9.5
+  },
+
+  "_loan": [
+    "대출 관련 기본값. 은행·상품마다 달라서 '입력 필드의 초기값' 용도다.",
+    "prepaymentFeeRate: 중도상환수수료율. 보통 0.7~1.4% 범위",
+    "prepaymentFeePeriodDays: 수수료 부과기간. 통상 3년 = 1095일",
+    "defaultRatePercent: 대출 계산 화면의 연이율 초기값. 시중금리에 맞춰 가끔 조정하면",
+    "  사용자가 매번 고쳐 넣는 수고가 줄어든다."
+  ],
+  "loan": {
+    "prepaymentFeeRate": 1.2,
+    "prepaymentFeePeriodDays": 1095,
+    "defaultRatePercent": 4.2
+  },
+
+  "_disclaimers": [
+    "면책·안내 문구를 원격으로 관리한다.",
+    "스토어 심사에서 '문구 보완'을 요구받는 일이 잦은데, 여기에 두면 앱 업데이트 없이",
+    "즉시 대응할 수 있다. 실무에서 가장 자주 쓰게 되는 항목이다.",
+    "개행이 필요하면 \\n 을 넣는다."
+  ],
+  "disclaimers": {
+    "health": "본 계산은 평균 주기에 기반한 참고용 추정이며 의학적 조언이 아닙니다. 정확한 판단은 의료 전문가와 상담하세요.",
+    "legal": "본 계산은 참고용이며 법적·세무적 효력이 없습니다. 실제 금액은 기관의 산정 기준에 따라 달라질 수 있습니다.",
+    "lunar": "음력 변환은 ICU 표준을 따르며, 드물게 한국천문연구원 공식 음력과 1일 차이가 날 수 있습니다.",
+    "military": "진급일은 통상 해당 월 1일자로 일괄 시행되어 실제 진급일과 다를 수 있습니다.",
+    "insurance": "근로자 부담분만 계산합니다. 사업주 부담분은 별도이며, 보수월액 상·하한 적용에 따라 실제 공제액이 달라질 수 있습니다."
+  }
+}
