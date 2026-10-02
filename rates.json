@@ -45,7 +45,7 @@
     "minSupportedVersionCode": 1,
     "latestVersionCode": 1,
     "notice": {
-      "enabled": false,
+      "enabled": true,
       "title": "강업",
       "message": "강업팝업테스트",
       "linkUrl": "https://naver.com"
