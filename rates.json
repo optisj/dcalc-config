@@ -36,19 +36,56 @@
 
   "_app": [
     "앱 전역 제어. 코드 배포 없이 사용자에게 메시지를 띄우거나 구버전을 막는다.",
-    "minSupportedVersionCode: 이 값 미만이면 강제 업데이트 안내를 띄운다.",
+    "",
+    "★ forceUpdate와 notice는 완전히 독립이다 ★",
+    "  forceUpdate — 차단. 닫을 수 없고 버튼은 하나뿐이다. 누르면 스토어로 가고 앱이 종료된다.",
+    "  notice      — 안내. 닫을 수 있고, 한 번 닫으면 다시 뜨지 않는다.",
+    "  둘 다 조건이 맞으면 forceUpdate만 뜬다. 차단이 우선이다.",
+    "",
+    "★ versionCode 형식: YYMMDDNN (연2 + 월2 + 일2 + 그날의 빌드번호2) ★",
+    "  예) 26100201 = 2026년 10월 2일, 그날의 1번째 빌드",
+    "",
+    "minSupportedVersionCode:",
+    "  이 값 '미만'의 versionCode는 앱을 쓸 수 없다.",
     "  치명적 계산 오류를 배포했을 때 구버전 사용을 차단하는 안전장치다.",
-    "  0으로 두면 아무도 차단하지 않는다. 평상시에는 0을 유지할 것.",
-    "notice: 공지 배너. enabled를 false로 두면 표시되지 않는다."
+    "",
+    "  ⚠️ 평상시에는 반드시 0을 유지할 것.",
+    "     실수로 큰 값을 넣으면 전 사용자가 한 번에 갇힌다.",
+    "",
+    "  차단이 필요하면 '이 날짜 이전 빌드를 모두 차단'하는 값을 넣는다.",
+    "    26100200 → 2026년 10월 2일 이전 빌드 전부 차단",
+    "    (그날 빌드는 26100201부터이므로 ...00이 경계로 깔끔하다)",
+    "",
+    "latestVersionCode: 참고용 표기. 코드에서 읽지 않으며 차단에도 쓰이지 않는다.",
+    "",
+    "forceUpdate: 차단 화면의 문구. 비워 두면 코드의 기본 문구가 쓰인다.",
+    "",
+    "notice: 공지 팝업.",
+    "  enabled를 false로 두면 표시되지 않는다.",
+    "  사용자가 닫으면 다시 뜨지 않지만, message 내용을 바꾸면 새 공지로 보고 다시 뜬다.",
+    "  linkUrl이 비어 있으면 '확인' 버튼만, 값이 있으면 '자세히 보기'가 함께 나온다.",
+    "",
+    "[테스트 방법]",
+    "  강제 업데이트만 → minSupportedVersionCode를 현재 versionCode보다 크게, notice.enabled=false",
+    "  공지만         → minSupportedVersionCode=0, notice.enabled=true",
+    "  ⚠️ 테스트 후 minSupportedVersionCode는 반드시 0으로 되돌릴 것."
   ],
+
   "app": {
-    "minSupportedVersionCode": 26100202,
-    "latestVersionCode": 1,
+    "minSupportedVersionCode": 26100203,
+    "latestVersionCode": 26100201,
+
+    "forceUpdate": {
+      "title": "업데이트가 필요합니다",
+      "message": "새로운 버전이 출시되었습니다.\n스토어에서 최신 버전을 설치해 주세요.",
+      "buttonText": "업데이트"
+    },
+
     "notice": {
-      "enabled": true,
-      "title": "업데이트 팝업",
-      "message": "새로운 버전이 출시되었습니다.\n스토어에서 새로운 버전을 설치해 주세요.",
-      "linkUrl": "https://naver.com"
+      "enabled": false,
+      "title": "",
+      "message": "",
+      "linkUrl": ""
     }
   },
 
