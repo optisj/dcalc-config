@@ -42,13 +42,13 @@
     "notice: 공지 배너. enabled를 false로 두면 표시되지 않는다."
   ],
   "app": {
-    "minSupportedVersionCode": 0,
+    "minSupportedVersionCode": 1,
     "latestVersionCode": 1,
     "notice": {
       "enabled": false,
-      "title": "",
-      "message": "",
-      "linkUrl": ""
+      "title": "강업",
+      "message": "강업팝업테스트",
+      "linkUrl": "https://naver.com"
     }
   },
 
