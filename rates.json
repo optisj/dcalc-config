@@ -46,8 +46,8 @@
     "latestVersionCode": 1,
     "notice": {
       "enabled": true,
-      "title": "강업",
-      "message": "강업팝업테스트",
+      "title": "업데이트 팝업",
+      "message": "새로운 버전이 출시되었습니다.\n스토어에서 새로운 버전을 설치해 주세요.",
       "linkUrl": "https://naver.com"
     }
   },
