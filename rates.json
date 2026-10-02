@@ -42,7 +42,7 @@
     "notice: 공지 배너. enabled를 false로 두면 표시되지 않는다."
   ],
   "app": {
-    "minSupportedVersionCode": 1,
+    "minSupportedVersionCode": 26100202,
     "latestVersionCode": 1,
     "notice": {
       "enabled": true,
