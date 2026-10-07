@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>개인정보 처리방침 - 모두의 계산기</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #666666;
+    --line: #e5e5e5;
+    --accent: #1B4696;
+    --card: #f7f8fa;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-sizing: border-box;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121212; --fg: #e8e8e8; --muted: #a0a0a0;
+      --line: #2c2c2c; --accent: #AEC6FF; --card: #1c1d20;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                 "Noto Sans KR", "Malgun Gothic", sans-serif;
+    line-height: 1.75;
+    font-size: 16px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
+  h1 { font-size: 1.7rem; margin: 0 0 8px; letter-spacing: -0.02em; }
+  h2 {
+    font-size: 1.15rem; margin: 40px 0 12px; padding-top: 24px;
+    border-top: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h2:first-of-type { border-top: none; padding-top: 0; }
+  p, li { color: var(--fg); }
+  .meta { color: var(--muted); font-size: 0.9rem; margin: 0 0 32px; }
+  ul { padding-left: 20px; }
+  li { margin: 6px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.93rem; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; white-space: nowrap; }
+  .card {
+    background: var(--card); border-radius: 12px;
+    padding: 16px 20px; margin: 20px 0;
+  }
+  .card strong { color: var(--accent); }
+  a { color: var(--accent); }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+           color: var(--muted); font-size: 0.88rem; }
+  /* 좁은 화면에서 표가 넘치지 않게 */
+  .scroll { overflow-x: auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>개인정보 처리방침</h1>
+<p class="meta">모두의 계산기 · 최종 수정일 2026년 10월 2일</p>
+
+<div class="card">
+  <strong>요약</strong><br>
+  본 앱은 이용자의 개인정보를 <strong>수집하지 않습니다</strong>.
+  입력하신 모든 계산 값은 기기 안에서만 처리되며 외부로 전송되지 않습니다.
+</div>
+
+<h2>1. 수집하는 개인정보</h2>
+<p>
+  본 앱은 회원가입 절차가 없으며, 이름·연락처·이메일·주소 등
+  개인을 식별할 수 있는 정보를 일절 수집하지 않습니다.
+</p>
+
+<h2>2. 기기에 저장되는 정보</h2>
+<p>아래 정보는 앱 기능 제공을 위해 <strong>이용자 기기 내부에만</strong> 저장되며, 외부로 전송되지 않습니다.</p>
+<div class="scroll">
+<table>
+  <tr><th>항목</th><th>목적</th><th>보관</th></tr>
+  <tr>
+    <td>계산 입력값<br>(날짜, 금액, 신체 정보 등)</td>
+    <td>계산 결과 산출</td>
+    <td>화면을 벗어나면 삭제</td>
+  </tr>
+  <tr>
+    <td>알림 설정 내역</td>
+    <td>예약한 날짜에 알림 발송</td>
+    <td>이용자가 삭제할 때까지</td>
+  </tr>
+  <tr>
+    <td>최근 사용한 계산기</td>
+    <td>홈 화면 바로가기 제공</td>
+    <td>이용자가 삭제할 때까지</td>
+  </tr>
+  <tr>
+    <td>위젯 설정값</td>
+    <td>홈 화면 위젯 표시</td>
+    <td>위젯 삭제 시까지</td>
+  </tr>
+</table>
+</div>
+<p>
+  앱을 삭제하면 위 정보는 모두 함께 삭제됩니다.
+  앱 내 <em>설정 &gt; 데이터</em>에서 개별적으로 삭제하실 수도 있습니다.
+</p>
+
+<h2>3. 네트워크 통신</h2>
+<p>본 앱은 다음 목적으로만 네트워크에 접속하며, 이용자 정보를 전송하지 않습니다.</p>
+<ul>
+  <li><strong>계산 기준값 조회</strong> — 4대보험 요율, 최저임금 등 법정 기준값을 내려받습니다.</li>
+  <li><strong>환율 조회</strong> — 환율 변환 기능 사용 시 유럽중앙은행(ECB) 기준환율을 내려받습니다.</li>
+</ul>
+<p>
+  두 경우 모두 <strong>데이터를 내려받기만</strong> 하며,
+  이용자의 입력값이나 기기 정보를 서버로 보내지 않습니다.
+</p>
+
+<h2>4. 광고</h2>
+<p>
+  본 앱은 Google AdMob을 통한 광고를 게재할 수 있습니다.
+  이 경우 Google은 광고 제공을 위해 광고 식별자(AAID) 등을 수집할 수 있으며,
+  이는 Google의 개인정보처리방침을 따릅니다.
+</p>
+<ul>
+  <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google 개인정보처리방침</a></li>
+  <li><a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">Google의 파트너 사이트 데이터 사용 방식</a></li>
+</ul>
+<p>
+  광고 맞춤설정은 기기의
+  <em>설정 &gt; Google &gt; 광고</em>에서 끄거나 광고 ID를 재설정할 수 있습니다.
+</p>
+
+<h2>5. 제3자 제공 및 위탁</h2>
+<p>
+  본 앱은 수집하는 개인정보가 없으므로 제3자에게 제공하거나 처리를 위탁하는 정보가 없습니다.
+</p>
+
+<h2>6. 아동의 개인정보</h2>
+<p>
+  본 앱은 만 14세 미만 아동을 주 대상으로 하지 않으며,
+  연령과 무관하게 개인정보를 수집하지 않습니다.
+</p>
+
+<h2>7. 이용자의 권리</h2>
+<p>
+  본 앱이 보관하는 개인정보가 없으므로 열람·정정·삭제를 요청하실 대상이 없습니다.
+  기기에 저장된 정보는 앱 내 설정 또는 앱 삭제를 통해 이용자가 직접 제거하실 수 있습니다.
+</p>
+
+<h2>8. 계산 결과에 대한 고지</h2>
+<p>
+  본 앱이 제공하는 계산 결과는 참고용이며 법적·세무적·의학적 효력이 없습니다.
+  실제 금액이나 판정은 관련 기관의 산정 기준에 따라 달라질 수 있습니다.
+</p>
+
+<h2>9. 방침 변경</h2>
+<p>
+  본 방침이 변경되는 경우 앱 내 공지 또는 본 페이지를 통해 안내합니다.
+  변경된 방침은 게시한 날부터 적용됩니다.
+</p>
+
+<h2>10. 문의</h2>
+<p>
+  개인정보 처리에 관한 문의는 아래로 연락해 주시기 바랍니다.<br>
+  <a href="mailto:CONTACT_EMAIL">CONTACT_EMAIL</a>
+</p>
+
+<footer>
+  모두의 계산기 · 개인정보 처리방침<br>
+  시행일 2026년 10월 2일
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>오픈소스 라이선스 - 모두의 계산기</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff; --fg: #1a1a1a; --muted: #666666;
+    --line: #e5e5e5; --accent: #1B4696; --card: #f7f8fa;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-sizing: border-box;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121212; --fg: #e8e8e8; --muted: #a0a0a0;
+      --line: #2c2c2c; --accent: #AEC6FF; --card: #1c1d20;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                 "Noto Sans KR", "Malgun Gothic", sans-serif;
+    line-height: 1.75; font-size: 16px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
+  h1 { font-size: 1.7rem; margin: 0 0 8px; letter-spacing: -0.02em; }
+  h2 {
+    font-size: 1.15rem; margin: 40px 0 12px; padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  h2:first-of-type { border-top: none; padding-top: 0; }
+  .meta { color: var(--muted); font-size: 0.9rem; margin: 0 0 32px; }
+  .lib {
+    background: var(--card); border-radius: 12px;
+    padding: 14px 18px; margin: 10px 0;
+  }
+  .lib .name { font-weight: 600; }
+  .lib .holder { color: var(--muted); font-size: 0.9rem; }
+  .license-tag {
+    display: inline-block; font-size: 0.78rem; color: var(--accent);
+    border: 1px solid var(--accent); border-radius: 999px;
+    padding: 1px 9px; margin-left: 6px; vertical-align: 1px;
+  }
+  details {
+    border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 18px; margin: 24px 0;
+  }
+  summary { cursor: pointer; font-weight: 600; }
+  pre {
+    white-space: pre-wrap; word-break: break-word;
+    font-size: 0.82rem; line-height: 1.6; color: var(--muted);
+    margin: 16px 0 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    overflow-x: auto;
+  }
+  a { color: var(--accent); }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+           color: var(--muted); font-size: 0.88rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>오픈소스 라이선스</h1>
+<p class="meta">모두의 계산기 · 최종 수정일 2026년 10월 2일</p>
+
+<p>
+  본 앱은 아래 오픈소스 소프트웨어를 사용하고 있으며,
+  각 프로젝트의 기여자분들께 감사드립니다.
+</p>
+
+<h2>Apache License 2.0</h2>
+
+<div class="lib">
+  <div class="name">AndroidX / Jetpack <span class="license-tag">Apache-2.0</span></div>
+  <div class="holder">Copyright © The Android Open Source Project</div>
+  <div class="holder">Compose, Navigation, Lifecycle, Activity, Core-KTX, Glance, DataStore</div>
+</div>
+
+<div class="lib">
+  <div class="name">Material Components / Material Design Icons <span class="license-tag">Apache-2.0</span></div>
+  <div class="holder">Copyright © Google LLC</div>
+</div>
+
+<div class="lib">
+  <div class="name">Kotlin <span class="license-tag">Apache-2.0</span></div>
+  <div class="holder">Copyright © JetBrains s.r.o. and Kotlin Programming Language contributors</div>
+</div>
+
+<div class="lib">
+  <div class="name">kotlinx.coroutines <span class="license-tag">Apache-2.0</span></div>
+  <div class="holder">Copyright © JetBrains s.r.o.</div>
+</div>
+
+<div class="lib">
+  <div class="name">kotlinx.serialization <span class="license-tag">Apache-2.0</span></div>
+  <div class="holder">Copyright © JetBrains s.r.o.</div>
+</div>
+
+<div class="lib">
+  <div class="name">ICU4J <span class="license-tag">Unicode License</span></div>
+  <div class="holder">Copyright © Unicode, Inc.</div>
+  <div class="holder">음력 변환에 사용 (Android 플랫폼 내장)</div>
+</div>
+
+<details>
+  <summary>Apache License 2.0 전문 보기</summary>
+<pre>
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</pre>
+  <p style="margin-top:12px">
+    전문은 <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">apache.org/licenses/LICENSE-2.0</a>에서 확인하실 수 있습니다.
+  </p>
+</details>
+
+<h2>데이터 출처</h2>
+
+<div class="lib">
+  <div class="name">유럽중앙은행(ECB) 기준환율</div>
+  <div class="holder">
+    환율 변환 기능은 ECB가 공시하는 기준환율을
+    <a href="https://frankfurter.dev" target="_blank" rel="noopener">Frankfurter</a>를 통해 조회합니다.
+    영업일 1회 갱신되며 실제 환전 환율과는 차이가 있습니다.
+  </div>
+</div>
+
+<div class="lib">
+  <div class="name">법정 기준값</div>
+  <div class="holder">
+    4대보험 요율, 최저임금, 연차·주휴수당 산정 기준은
+    국민연금공단·국민건강보험공단·근로복지공단·고용노동부의 공시 자료를 참고하여 적용합니다.
+    계산 결과는 참고용이며 법적 효력이 없습니다.
+  </div>
+</div>
+
+<footer>
+  모두의 계산기 · 오픈소스 라이선스<br>
+  문의: <a href="mailto:CONTACT_EMAIL">CONTACT_EMAIL</a>
+</footer>
+
+</div>
+</body>
+</html>
