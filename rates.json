@@ -32,7 +32,7 @@
   ],
 
   "version": 2,
-  "updatedAt": "2026-09-22",
+  "updatedAt": "2026-10-13",
 
   "_app": [
     "앱 전역 제어. 코드 배포 없이 사용자에게 메시지를 띄우거나 구버전을 막는다.",
@@ -72,8 +72,8 @@
   ],
 
   "app": {
-    "minSupportedVersionCode": 26101301,
-    "latestVersionCode": 26100201,
+    "minSupportedVersionCode": 26101302,
+    "latestVersionCode": 26101302,
 
     "forceUpdate": {
       "title": "업데이트가 필요합니다",
