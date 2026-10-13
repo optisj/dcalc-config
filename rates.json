@@ -72,7 +72,7 @@
   ],
 
   "app": {
-    "minSupportedVersionCode": 26100203,
+    "minSupportedVersionCode": 0,
     "latestVersionCode": 26100201,
 
     "forceUpdate": {
@@ -235,6 +235,32 @@
   "currency": {
     "endpoint": "https://api.frankfurter.dev/v1/latest",
     "ttlMinutes": 720
+  },
+
+  "_ads": [
+    "전면광고 노출 빈도 제어.",
+    "",
+    "★ 동작 방식 ★",
+    "  1) 앱 실행 시 0 이상 showAdRandomMaxCount 미만의 난수를 하나 뽑아 세션 내내 보관",
+    "  2) 사용자가 메뉴를 누를 때마다 같은 범위의 난수를 새로 뽑음",
+    "  3) 두 값이 같으면 전면광고 노출",
+    "",
+    "  두 난수의 범위가 같으므로 노출 확률은 정확히 1 / showAdRandomMaxCount 다.",
+    "    5  → 20%",
+    "    10 → 10%",
+    "    20 →  5%",
+    "",
+    "  ⚠️ 0 또는 1로 두면 광고가 완전히 꺼진다. 테스트나 긴급 상황에 쓴다.",
+    "  ⚠️ 값이 작을수록(=확률이 높을수록) 수익은 늘지만 이탈률도 오른다.",
+    "     계산기는 '빨리 쓰고 나가는' 앱이라 전면광고가 특히 거슬린다.",
+    "     10 이상에서 시작해 지표를 보며 조정할 것.",
+    "",
+    "closeDelaySeconds: 광고를 닫을 수 있게 되기까지의 대기 시간(초).",
+    "  실제 AdMob 전면광고와 비슷하게 맞춘 값이다. 0이면 즉시 닫을 수 있다."
+  ],
+  "ads": {
+    "showAdRandomMaxCount": 0,
+    "closeDelaySeconds": 3
   },
 
   "_disclaimers": [

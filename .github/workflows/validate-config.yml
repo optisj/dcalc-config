@@ -1,0 +1,42 @@
+name: 설정 검증
+
+# ★ 이 워크플로가 하는 일 ★
+# rates.json 이 바뀔 때마다 검증한다.
+# 이 파일은 푸시하는 순간 24시간 내 전 사용자에게 퍼지므로,
+# 사람이 눈으로 보는 것만으로는 사고를 막을 수 없다.
+#
+# 특히 minSupportedVersionCode 를 실수로 남겨두면 모든 사용자가 앱을 못 쓴다.
+# 그 경우 커밋 메시지에 [force-update] 가 없으면 실패시킨다.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "rates.json"
+      - "scripts/validate_config.py"
+  pull_request:
+    paths:
+      - "rates.json"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: rates.json 검증
+        env:
+          # 검증 스크립트가 강제 업데이트 표식을 확인하는 데 쓴다
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: python3 scripts/validate_config.py
+
+      - name: fx 파일 검증
+        run: |
+          # 자동 생성 파일이지만, 손으로 고쳤을 때를 대비해 문법만 확인한다
+          for f in fx/*.json; do
+            [ -e "$f" ] || continue
+            python3 -c "import json,sys; json.load(open('$f'))" \
+              || { echo "JSON 오류: $f"; exit 1; }
+          done
+          echo "fx 파일 확인 완료"

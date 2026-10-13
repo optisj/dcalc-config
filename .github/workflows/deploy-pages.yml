@@ -1,0 +1,50 @@
+name: 페이지 배포
+
+# 개인정보 처리방침·오픈소스 라이선스 페이지를 GitHub Pages로 배포한다.
+#
+# ⚠️ 저장소 Settings → Pages → Source 를 "GitHub Actions" 로 바꿔야 동작한다.
+#    "Deploy from a branch" 로 두면 이 워크플로가 무시된다.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "*.html"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 배포가 겹치지 않게 한다. 진행 중인 것은 취소하지 않는다.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 자리표시자 검사
+        run: |
+          # CONTACT_EMAIL 을 안 바꾸고 배포하는 사고를 막는다
+          if grep -l "CONTACT_EMAIL" ./*.html 2>/dev/null; then
+            echo "위 파일에 CONTACT_EMAIL 자리표시자가 남아 있습니다."
+            echo "실제 이메일 주소로 바꾼 뒤 다시 푸시하세요."
+            exit 1
+          fi
+          echo "자리표시자 없음"
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
