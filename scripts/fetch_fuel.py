@@ -78,12 +78,25 @@ def call(path, params=None):
 
 
 def to_price(raw):
-    """'2011.34' → 2011.34. 변환 실패하면 None."""
+    """'2011.34' → 2011.34. 변환 실패하면 None. 가격용이라 0 이하는 무효로 본다."""
     try:
         v = float(str(raw).replace(",", ""))
         return v if v > 0 else None
     except (TypeError, ValueError):
         return None
+
+
+def to_diff(raw):
+    """
+    전일 대비 증감.
+
+    ⚠️ to_price를 쓰면 안 된다. 음수(가격 하락)를 None으로 버려버린다.
+       유가는 떨어지는 날이 절반이므로 치명적이다.
+    """
+    try:
+        return float(str(raw).replace(",", ""))
+    except (TypeError, ValueError):
+        return 0.0
 
 
 def fetch_national():
@@ -106,8 +119,8 @@ def fetch_national():
         prices[PRODUCTS[code]["id"]] = {
             "name": PRODUCTS[code]["name"],
             "price": round(price, 2),
-            # 전일 대비 증감. 앱에서 "▲2.1원" 처럼 보여줄 수 있다.
-            "diff": to_price(row.get("DIFF")) or 0.0,
+            # 전일 대비 증감. 음수(하락)도 그대로 담는다.
+            "diff": to_diff(row.get("DIFF")),
         }
         trade_date = row.get("TRADE_DT", trade_date)
 
@@ -132,10 +145,16 @@ def fetch_by_region():
         if price is None:
             continue
 
-        regions.setdefault(sido, {
+        entry = regions.setdefault(sido, {
             "name": SIDO[sido],
             "prices": {},
-        })["prices"][PRODUCTS[code]["id"]] = round(price, 2)
+            "diffs": {},
+        })
+        pid = PRODUCTS[code]["id"]
+        entry["prices"][pid] = round(price, 2)
+        # 전일 대비 증감. 앱에서 "▲2.1" 처럼 보여준다.
+        # 오피넷이 DIFF를 안 주는 경우가 있어 0.0으로 채운다.
+        entry["diffs"][pid] = to_diff(row.get("DIFF"))
 
     return regions
 
