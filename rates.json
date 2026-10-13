@@ -221,7 +221,14 @@
     "환율 조회 엔드포인트. 이 앱에서 유일한 외부 API 의존이다.",
     "여기에 URL을 둔 이유: 서비스가 중단되거나 주소가 바뀌어도 앱 업데이트 없이 교체할 수 있다.",
     "",
-    "현재: Frankfurter (유럽중앙은행 ECB 기준환율 중계, 오픈소스, 키 불필요)",
+    "★ 권장: GitHub Actions가 생성한 정적 파일 ★",
+    "  https://raw.githubusercontent.com/<계정>/dcalc-config/main/fx/{base}.json",
+    "  {base} 자리에 기준 통화 코드가 들어간다. (USD, KRW, JPY ...)",
+    "  .github/workflows/update-fx.yml 이 매일 ECB 환율을 받아 커밋한다.",
+    "  → 런타임에 외부 API를 타지 않으므로 서비스 중단 위험이 없고,",
+    "    GitHub CDN이 트래픽을 받아준다.",
+    "",
+    "대안: Frankfurter 직접 호출 (ECB 중계, 오픈소스, 키 불필요)",
     "  요청 형식  <endpoint>?base=KRW",
     "  응답 형식  { \"date\": \"2026-09-28\", \"base\": \"KRW\", \"rates\": { \"USD\": 0.00068, ... } }",
     "",
@@ -230,11 +237,42 @@
     "⚠️ ECB는 영업일 1회 고시이며 실시간이 아니다. 고시 통화는 약 30종.",
     "⚠️ 기준환율이지 환전 환율이 아니다. 화면에 반드시 안내할 것.",
     "",
-    "ttlMinutes: 캐시 유효 시간. ECB가 하루 1회 갱신이라 720분(12시간)이면 충분하다."
+    "ttlMinutes: 캐시 유효 시간. ECB가 하루 1회 갱신이라 720분(12시간)이면 충분하다.",
+    "",
+    "defaultBase: 환율 기준 통화의 기본값.",
+    "  국내 사용자는 '1달러 = 몇 원'으로 생각하므로 USD가 자연스럽다.",
+    "  기준을 KRW로 두면 '1원 = 0.00068달러'처럼 읽기 어려운 숫자가 나온다.",
+    "  사용자가 설정 화면에서 바꾸면 그 값이 우선한다."
   ],
   "currency": {
-    "endpoint": "https://api.frankfurter.dev/v1/latest",
-    "ttlMinutes": 720
+    "endpoint": "https://raw.githubusercontent.com/optisj/dcalc-config/main/fx/{base}.json",
+    "ttlMinutes": 720,
+    "defaultBase": "USD"
+  },
+
+  "_fuel": [
+    "오피넷(한국석유공사) 평균 유가.",
+    "",
+    "★ GitHub Actions가 매시간 받아 커밋한 정적 파일을 읽는다 ★",
+    "  .github/workflows/update-fuel.yml 참고",
+    "",
+    "  앱이 오피넷 API를 직접 호출하지 않는 이유:",
+    "   1) API 키가 필요한데 앱에 넣으면 APK를 뜯어 꺼낼 수 있다",
+    "   2) 오피넷 API는 http(평문)라 앱에서 호출하려면",
+    "      cleartextTrafficPermitted 예외를 열어야 한다 (보안 점검 지적 항목)",
+    "   3) 사용자 수와 무관하게 호출이 하루 24회로 고정된다",
+    "",
+    "  priceUrl 이 비어 있으면 자동 조회가 꺼지고 사용자가 직접 입력한다.",
+    "  오피넷 API 키 발급 전에는 비워 두면 된다.",
+    "",
+    "ttlMinutes: 캐시 유효 시간. 평균가는 하루 단위로 바뀌므로 60분이면 충분하다.",
+    "",
+    "⚠️ 오피넷 데이터는 '전국/시도 평균'이다. 개별 주유소 가격과 다르다.",
+    "   화면에 기준일과 출처를 반드시 표기할 것."
+  ],
+  "fuel": {
+    "priceUrl": "https://raw.githubusercontent.com/optisj/dcalc-config/main/fuel/latest.json",
+    "ttlMinutes": 60
   },
 
   "_ads": [
@@ -259,7 +297,7 @@
     "  실제 AdMob 전면광고와 비슷하게 맞춘 값이다. 0이면 즉시 닫을 수 있다."
   ],
   "ads": {
-    "showAdRandomMaxCount": 0,
+    "showAdRandomMaxCount": 10,
     "closeDelaySeconds": 3
   },
 
