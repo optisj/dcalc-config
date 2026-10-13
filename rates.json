@@ -72,7 +72,7 @@
   ],
 
   "app": {
-    "minSupportedVersionCode": 0,
+    "minSupportedVersionCode": 26101301,
     "latestVersionCode": 26100201,
 
     "forceUpdate": {
