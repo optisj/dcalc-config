@@ -146,12 +146,21 @@
     "출처: 국민연금공단 / 국민건강보험공단 / 근로복지공단 고시",
     "⚠️ longTermCare(장기요양)만 기준이 다르다. 급여가 아니라 '건강보험료' 대비 비율이다.",
     "⚠️ 국민연금에는 기준소득월액 상·하한이 있어 고소득자는 실제 공제액이 더 적다.",
-    "   앱은 단순 계산만 하고 disclaimers.insurance로 안내한다."
+    "   앱은 단순 계산만 하고 disclaimers.insurance로 안내한다.",
+    "",
+    "[2026년 변경]",
+    "  국민연금 9.0% → 9.5%  (근로자 4.5% → 4.75%)",
+    "  건강보험  7.09% → 7.19% (근로자 3.545% → 3.595%)",
+    "  장기요양  건보료의 12.95% → 13.14%",
+    "  고용보험  0.9% 동결",
+    "",
+    "⚠️ 국민연금은 2033년 13%까지 매년 0.5%p씩 오른다.",
+    "   2027년 10.0%(근로자 5.0%), 2028년 10.5%(5.25%) ... 매년 1월 갱신할 것."
   ],
   "insurance": {
-    "pension": 4.5,
-    "health": 3.545,
-    "longTermCare": 12.95,
+    "pension": 4.75,
+    "health": 3.595,
+    "longTermCare": 13.14,
     "employment": 0.9
   },
 
@@ -191,6 +200,53 @@
       "standardHours": 40.0,
       "paidHours": 8.0
     }
+  },
+
+  "_tax": [
+    "연봉 실수령액 계산용 세율·공제 기준.",
+    "",
+    "⚠️ 소득세는 근로소득 간이세액표(소득세법 시행령 별표2)의 '산식'을 구현한 것이다.",
+    "   국세청이 배포하는 간이세액표 자체와 수십~수백 원 차이가 날 수 있다.",
+    "   공식 표는 월급여를 구간으로 묶어 '구간 중간값'으로 계산하기 때문이다.",
+    "   화면에 추정치임을 반드시 안내할 것.",
+    "",
+    "pensionMinBase / pensionMaxBase:",
+    "  국민연금 기준소득월액 하한·상한. 매년 7월 조정된다.",
+    "  고소득자는 상한에 걸려 보험료가 더 늘지 않는다.",
+    "  2026.07~2027.06 기준: 하한 41만원 / 상한 659만원",
+    "  (2025.07~2026.06 은 하한 40만원 / 상한 637만원이었다)",
+    "",
+    "healthMaxBase: 건강보험 보수월액 상한. 대부분 해당되지 않는다.",
+    "",
+    "brackets: 소득세 기본세율. upTo 이하 과세표준에 rate(%)를 적용하고",
+    "  progressiveDeduction(누진공제액)을 뺀다. 오름차순이어야 한다.",
+    "  ⚠️ 마지막 구간의 upTo는 매우 큰 값으로 둬서 상한이 없게 한다.",
+    "",
+    "basicDeductionPerPerson: 1인당 기본공제. 본인 포함 가족수만큼 곱한다.",
+    "earnedIncomeDeductionLimit: 근로소득공제 한도.",
+    "localTaxRate: 지방소득세율. 소득세 대비 %.",
+    "",
+    "[갱신 시점]",
+    "  매년 1월  → 4대보험 요율(insurance와 동일하게 맞출 것), 세법 개정분",
+    "  매년 7월  → 국민연금 기준소득월액 상·하한"
+  ],
+  "tax": {
+    "pensionMinBase": 410000,
+    "pensionMaxBase": 6590000,
+    "healthMaxBase": 127056982,
+    "localTaxRate": 10.0,
+    "basicDeductionPerPerson": 1500000,
+    "earnedIncomeDeductionLimit": 20000000,
+    "brackets": [
+      { "upTo": 14000000,   "rate": 6.0,  "progressiveDeduction": 0 },
+      { "upTo": 50000000,   "rate": 15.0, "progressiveDeduction": 1260000 },
+      { "upTo": 88000000,   "rate": 24.0, "progressiveDeduction": 5760000 },
+      { "upTo": 150000000,  "rate": 35.0, "progressiveDeduction": 15440000 },
+      { "upTo": 300000000,  "rate": 38.0, "progressiveDeduction": 19940000 },
+      { "upTo": 500000000,  "rate": 40.0, "progressiveDeduction": 25940000 },
+      { "upTo": 1000000000, "rate": 42.0, "progressiveDeduction": 35940000 },
+      { "upTo": 9999999999, "rate": 45.0, "progressiveDeduction": 65940000 }
+    ]
   },
 
   "_savings": [
@@ -315,4 +371,3 @@
     "insurance": "근로자 부담분만 계산합니다. 사업주 부담분은 별도이며, 보수월액 상·하한 적용에 따라 실제 공제액이 달라질 수 있습니다."
   }
 }
-
