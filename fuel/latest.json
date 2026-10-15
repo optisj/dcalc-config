@@ -1,33 +1,28 @@
 {
   "_comment": "GitHub Actions가 자동 생성합니다. 직접 수정하지 마세요.",
   "_source": "한국석유공사 오피넷 (opinet.co.kr)",
-  "_fetchedAt": "2026-10-15T10:24:34+00:00",
-  "tradeDate": "20261015",
+  "_fetchedAt": "2026-10-15T15:22:15+00:00",
+  "tradeDate": "20261016",
   "national": {
     "premium": {
       "name": "고급휘발유",
-      "price": 2388.53,
-      "diff": 3.99
+      "price": 2371.4,
+      "diff": -16.6
     },
     "gasoline": {
       "name": "휘발유",
-      "price": 1856.39,
-      "diff": -0.11
+      "price": 1856.38,
+      "diff": -0.02
     },
     "diesel": {
       "name": "경유",
-      "price": 1842.6,
-      "diff": -0.19
-    },
-    "kerosene": {
-      "name": "실내등유",
-      "price": 1572.1,
-      "diff": -0.02
+      "price": 1842.58,
+      "diff": -0.15
     },
     "lpg": {
       "name": "자동차용 LPG",
-      "price": 1143.78,
-      "diff": -0.06
+      "price": 1143.81,
+      "diff": -0.04
     }
   },
   "regions": {
