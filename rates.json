@@ -31,8 +31,8 @@
     "  수시      → military (국방부 복무기간 개편), labor (근로기준법 개정)"
   ],
 
-  "version": 2,
-  "updatedAt": "2026-10-13",
+  "version": 3,
+  "updatedAt": "2026-10-16",
 
   "_app": [
     "앱 전역 제어. 코드 배포 없이 사용자에게 메시지를 띄우거나 구버전을 막는다.",
@@ -72,8 +72,8 @@
   ],
 
   "app": {
-    "minSupportedVersionCode": 26101302,
-    "latestVersionCode": 26101302,
+    "minSupportedVersionCode": 26101601,
+    "latestVersionCode": 26101601,
 
     "forceUpdate": {
       "title": "업데이트가 필요합니다",
@@ -350,11 +350,13 @@
     "     10 이상에서 시작해 지표를 보며 조정할 것.",
     "",
     "closeDelaySeconds: 광고를 닫을 수 있게 되기까지의 대기 시간(초).",
-    "  실제 AdMob 전면광고와 비슷하게 맞춘 값이다. 0이면 즉시 닫을 수 있다."
+    "  실제 AdMob 전면광고와 비슷하게 맞춘 값이다. 0이면 즉시 닫을 수 있다.",
+    "showOpenAd: 앱 오프닝 광고 사용 여부"
   ],
   "ads": {
     "showAdRandomMaxCount": 10,
-    "closeDelaySeconds": 3
+    "closeDelaySeconds": 3,
+    "showOpenAd": false
   },
 
   "_disclaimers": [
