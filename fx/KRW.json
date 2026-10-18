@@ -2,7 +2,7 @@
   "_comment": "GitHub Actions가 자동 생성합니다. 직접 수정하지 마세요.",
   "_source": "European Central Bank via frankfurter",
   "_note": "EUR 기준 고시환율에서 교차 계산한 값입니다.",
-  "_fetchedAt": "2026-10-17T18:40:50+00:00",
+  "_fetchedAt": "2026-10-18T18:44:59+00:00",
   "date": "2026-10-16",
   "base": "KRW",
   "rates": {
