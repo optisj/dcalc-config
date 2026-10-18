@@ -31,8 +31,8 @@
     "  수시      → military (국방부 복무기간 개편), labor (근로기준법 개정)"
   ],
 
-  "version": 3,
-  "updatedAt": "2026-10-16",
+  "version": 4,
+  "updatedAt": "2026-10-19",
 
   "_app": [
     "앱 전역 제어. 코드 배포 없이 사용자에게 메시지를 띄우거나 구버전을 막는다.",
@@ -72,7 +72,7 @@
   ],
 
   "app": {
-    "minSupportedVersionCode": 26101601,
+    "minSupportedVersionCode": 26101901,
     "latestVersionCode": 26101601,
 
     "forceUpdate": {
