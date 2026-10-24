@@ -1,23 +1,23 @@
 {
   "_comment": "GitHub Actions가 자동 생성합니다. 직접 수정하지 마세요.",
   "_source": "한국석유공사 오피넷 (opinet.co.kr)",
-  "_fetchedAt": "2026-10-24T02:04:55+00:00",
+  "_fetchedAt": "2026-10-24T07:38:55+00:00",
   "tradeDate": "20261024",
   "national": {
     "premium": {
       "name": "고급휘발유",
-      "price": 2397.69,
-      "diff": 0.31
+      "price": 2397.65,
+      "diff": 0.27
     },
     "gasoline": {
       "name": "휘발유",
-      "price": 1855.85,
-      "diff": -0.07
+      "price": 1855.86,
+      "diff": -0.06
     },
     "diesel": {
       "name": "경유",
-      "price": 1841.78,
-      "diff": -0.61
+      "price": 1841.93,
+      "diff": -0.46
     },
     "kerosene": {
       "name": "실내등유",
@@ -26,127 +26,127 @@
     },
     "lpg": {
       "name": "자동차용 LPG",
-      "price": 1143.9,
-      "diff": 0.04
+      "price": 1143.93,
+      "diff": 0.07
     }
   },
   "regions": {
     "01": {
       "name": "서울",
       "prices": {
-        "gasoline": 1901.82,
-        "premium": 2457.51,
+        "gasoline": 1901.76,
+        "premium": 2457.47,
         "kerosene": 1695.4,
-        "diesel": 1884.08,
+        "diesel": 1884.05,
         "lpg": 1203.06
       },
       "diffs": {
-        "gasoline": -0.22,
-        "premium": -0.04,
+        "gasoline": -0.28,
+        "premium": -0.08,
         "kerosene": 1.08,
-        "diesel": 0.03,
+        "diesel": 0.0,
         "lpg": 0.0
       }
     },
     "02": {
       "name": "경기",
       "prices": {
-        "gasoline": 1852.55,
-        "premium": 2395.24,
-        "kerosene": 1586.68,
-        "diesel": 1836.34,
-        "lpg": 1145.28
+        "gasoline": 1852.49,
+        "premium": 2395.09,
+        "kerosene": 1586.03,
+        "diesel": 1836.58,
+        "lpg": 1145.32
       },
       "diffs": {
-        "gasoline": 0.11,
-        "premium": 0.08,
-        "kerosene": 0.15,
-        "diesel": -0.7,
-        "lpg": 0.24
+        "gasoline": 0.05,
+        "premium": -0.07,
+        "kerosene": -0.5,
+        "diesel": -0.46,
+        "lpg": 0.28
       }
     },
     "03": {
       "name": "강원",
       "prices": {
-        "gasoline": 1867.5,
+        "gasoline": 1867.53,
         "premium": 2438.65,
-        "kerosene": 1550.97,
-        "diesel": 1857.57,
+        "kerosene": 1550.33,
+        "diesel": 1858.16,
         "lpg": 1174.41
       },
       "diffs": {
-        "gasoline": -0.14,
+        "gasoline": -0.11,
         "premium": 1.97,
-        "kerosene": 0.37,
-        "diesel": -0.87,
+        "kerosene": -0.27,
+        "diesel": -0.28,
         "lpg": 0.0
       }
     },
     "04": {
       "name": "충북",
       "prices": {
-        "gasoline": 1863.46,
-        "premium": 2412.62,
-        "kerosene": 1562.94,
-        "diesel": 1849.52,
+        "gasoline": 1863.47,
+        "premium": 2413.1,
+        "kerosene": 1563.72,
+        "diesel": 1849.78,
         "lpg": 1133.93
       },
       "diffs": {
-        "gasoline": -0.56,
-        "premium": 0.44,
-        "kerosene": 0.48,
-        "diesel": -0.21,
+        "gasoline": -0.55,
+        "premium": 0.92,
+        "kerosene": 1.26,
+        "diesel": 0.05,
         "lpg": -0.02
       }
     },
     "05": {
       "name": "충남",
       "prices": {
-        "gasoline": 1862.94,
+        "gasoline": 1862.99,
         "premium": 2408.03,
-        "kerosene": 1554.82,
-        "diesel": 1848.93,
+        "kerosene": 1555.02,
+        "diesel": 1848.74,
         "lpg": 1150.18
       },
       "diffs": {
-        "gasoline": -0.01,
+        "gasoline": 0.04,
         "premium": 0.0,
-        "kerosene": -1.47,
-        "diesel": -0.49,
+        "kerosene": -1.27,
+        "diesel": -0.68,
         "lpg": 0.0
       }
     },
     "06": {
       "name": "전북",
       "prices": {
-        "gasoline": 1856.81,
-        "premium": 2387.23,
-        "kerosene": 1551.9,
-        "diesel": 1843.97,
+        "gasoline": 1856.3,
+        "premium": 2386.79,
+        "kerosene": 1551.8,
+        "diesel": 1843.76,
         "lpg": 1107.97
       },
       "diffs": {
-        "gasoline": 0.36,
-        "premium": -0.63,
-        "kerosene": -1.37,
-        "diesel": -0.23,
+        "gasoline": -0.15,
+        "premium": -1.07,
+        "kerosene": -1.47,
+        "diesel": -0.44,
         "lpg": 0.0
       }
     },
     "08": {
       "name": "경북",
       "prices": {
-        "gasoline": 1849.55,
+        "gasoline": 1849.59,
         "premium": 2360.18,
-        "kerosene": 1562.88,
-        "diesel": 1835.7,
+        "kerosene": 1562.57,
+        "diesel": 1835.89,
         "lpg": 1131.57
       },
       "diffs": {
-        "gasoline": -0.13,
+        "gasoline": -0.09,
         "premium": 2.11,
-        "kerosene": -1.51,
-        "diesel": -0.63,
+        "kerosene": -1.82,
+        "diesel": -0.44,
         "lpg": 0.17
       }
     },
@@ -154,101 +154,101 @@
       "name": "경남",
       "prices": {
         "gasoline": 1849.63,
-        "premium": 2379.88,
-        "kerosene": 1581.29,
-        "diesel": 1835.37,
-        "lpg": 1123.86
+        "premium": 2380.15,
+        "kerosene": 1581.06,
+        "diesel": 1835.35,
+        "lpg": 1123.94
       },
       "diffs": {
         "gasoline": -0.15,
-        "premium": -0.05,
-        "kerosene": -0.38,
-        "diesel": -0.69,
-        "lpg": -0.08
+        "premium": 0.22,
+        "kerosene": -0.61,
+        "diesel": -0.71,
+        "lpg": 0.0
       }
     },
     "10": {
       "name": "부산",
       "prices": {
-        "gasoline": 1837.87,
-        "premium": 2355.37,
-        "kerosene": 1624.29,
-        "diesel": 1822.17,
+        "gasoline": 1837.9,
+        "premium": 2355.66,
+        "kerosene": 1626.5,
+        "diesel": 1822.29,
         "lpg": 1131.82
       },
       "diffs": {
-        "gasoline": 0.1,
-        "premium": 1.51,
-        "kerosene": -2.7,
-        "diesel": -0.79,
+        "gasoline": 0.13,
+        "premium": 1.8,
+        "kerosene": -0.49,
+        "diesel": -0.67,
         "lpg": 0.0
       }
     },
     "11": {
       "name": "제주",
       "prices": {
-        "gasoline": 1888.4,
+        "gasoline": 1888.63,
         "premium": 2470.44,
-        "kerosene": 1562.42,
-        "diesel": 1872.02,
-        "lpg": 1180.03
+        "kerosene": 1565.34,
+        "diesel": 1872.17,
+        "lpg": 1181.0
       },
       "diffs": {
-        "gasoline": -0.23,
+        "gasoline": 0.0,
         "premium": 0.0,
-        "kerosene": -0.27,
-        "diesel": 0.07,
-        "lpg": -1.44
+        "kerosene": 2.65,
+        "diesel": 0.22,
+        "lpg": -0.47
       }
     },
     "14": {
       "name": "대구",
       "prices": {
-        "gasoline": 1826.94,
-        "premium": 2394.62,
+        "gasoline": 1827.31,
+        "premium": 2394.72,
         "kerosene": 1589.61,
-        "diesel": 1812.24,
+        "diesel": 1812.61,
         "lpg": 1164.61
       },
       "diffs": {
-        "gasoline": -0.18,
-        "premium": 0.02,
+        "gasoline": 0.19,
+        "premium": 0.12,
         "kerosene": -3.0,
-        "diesel": -0.87,
+        "diesel": -0.5,
         "lpg": 0.0
       }
     },
     "15": {
       "name": "인천",
       "prices": {
-        "gasoline": 1845.43,
-        "premium": 2363.82,
-        "kerosene": 1594.47,
-        "diesel": 1829.81,
+        "gasoline": 1845.52,
+        "premium": 2363.94,
+        "kerosene": 1599.85,
+        "diesel": 1830.14,
         "lpg": 1140.89
       },
       "diffs": {
-        "gasoline": -0.07,
-        "premium": 1.32,
-        "kerosene": 2.18,
-        "diesel": -0.94,
+        "gasoline": 0.02,
+        "premium": 1.44,
+        "kerosene": 7.56,
+        "diesel": -0.61,
         "lpg": 0.0
       }
     },
     "17": {
       "name": "대전",
       "prices": {
-        "gasoline": 1836.2,
+        "gasoline": 1836.18,
         "premium": 2388.93,
-        "kerosene": 1587.63,
-        "diesel": 1825.46,
+        "kerosene": 1588.98,
+        "diesel": 1825.05,
         "lpg": 1116.22
       },
       "diffs": {
-        "gasoline": 0.35,
+        "gasoline": 0.33,
         "premium": 0.0,
-        "kerosene": 0.0,
-        "diesel": -0.02,
+        "kerosene": 1.35,
+        "diesel": -0.43,
         "lpg": 0.0
       }
     },
@@ -256,15 +256,15 @@
       "name": "울산",
       "prices": {
         "gasoline": 1833.69,
-        "premium": 2353.72,
-        "kerosene": 1595.83,
+        "premium": 2354.15,
+        "kerosene": 1597.02,
         "diesel": 1824.41,
         "lpg": 1151.29
       },
       "diffs": {
         "gasoline": -0.46,
-        "premium": 0.65,
-        "kerosene": -1.79,
+        "premium": 1.08,
+        "kerosene": -0.6,
         "diesel": -1.05,
         "lpg": 0.0
       }
@@ -274,15 +274,15 @@
       "prices": {
         "gasoline": 1855.0,
         "premium": 2397.86,
-        "kerosene": 1529.67,
-        "diesel": 1840.35,
+        "kerosene": 1535.16,
+        "diesel": 1841.98,
         "lpg": 1147.71
       },
       "diffs": {
         "gasoline": -0.44,
         "premium": -7.6,
-        "kerosene": -2.74,
-        "diesel": -1.35,
+        "kerosene": 2.75,
+        "diesel": 0.28,
         "lpg": 0.0
       }
     }
