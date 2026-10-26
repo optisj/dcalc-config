@@ -128,10 +128,10 @@ FALLBACK_SOURCES = [
 def fetch_ecb():
     """
     1차: ECB 기준환율 (EUR 기준).
+    CURRENCIES에 없는 통화까지 ECB가 고시하는 전 통화를 그대로 받는다.
     반환: (날짜, {통화: EUR 대비 환율}) — EUR 자신은 1.0으로 포함. 실패 시 (None, None)
     """
-    # ECB에 없는 통화를 symbols에 넣으면 frankfurter가 에러를 낼 수 있어서
-    # symbols 없이 전체를 받은 뒤 필요한 것만 고른다. 응답 크기 차이는 미미하다.
+    # symbols 없이 호출하면 ECB가 고시하는 전 통화(약 30종)가 온다.
     for base_url in ECB_SOURCES:
         url = "{}?base=EUR".format(base_url)
         print("조회(ECB): {}".format(url))
@@ -140,8 +140,7 @@ def fetch_ecb():
         if data and "rates" in data:
             rates = clean_rates(data["rates"])
             rates["EUR"] = 1.0   # 기준 통화 자신
-            picked = {c: rates[c] for c in CURRENCIES if c in rates}
-            return data.get("date", ""), picked
+            return data.get("date", ""), rates
  
         print("  → 다음 주소 시도", file=sys.stderr)
  
@@ -216,8 +215,13 @@ def main():
     if missing:
         print("경고: 어느 소스에도 없는 통화 - {}".format(", ".join(missing)), file=sys.stderr)
  
+    # 앱 지원 통화(CURRENCIES 순서)를 먼저, ECB에만 있는 나머지는 알파벳순으로 뒤에 붙인다.
     available = [c for c in CURRENCIES if c in eur_rates]
+    extra = sorted(c for c in eur_rates if c not in CURRENCIES)
+    available += extra
     print("\n수신: {}종 (기준일 {})".format(len(available), date))
+    if extra:
+        print("  CURRENCIES 외 추가 통화: {}".format(", ".join(extra)))
  
     os.makedirs(OUT_DIR, exist_ok=True)
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
