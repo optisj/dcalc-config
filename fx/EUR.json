@@ -1,8 +1,43 @@
 {
   "_comment": "GitHub Actions가 자동 생성합니다. 직접 수정하지 마세요.",
-  "_source": "European Central Bank via frankfurter",
-  "_note": "EUR 기준 고시환율에서 교차 계산한 값입니다.",
-  "_fetchedAt": "2026-10-25T19:09:41+00:00",
+  "_sources": [
+    {
+      "name": "European Central Bank via frankfurter",
+      "date": "2026-10-23",
+      "currencies": [
+        "AUD",
+        "BRL",
+        "CAD",
+        "CHF",
+        "CNY",
+        "EUR",
+        "GBP",
+        "HKD",
+        "IDR",
+        "INR",
+        "JPY",
+        "KRW",
+        "MXN",
+        "MYR",
+        "NZD",
+        "PHP",
+        "SGD",
+        "THB",
+        "TRY",
+        "USD"
+      ]
+    },
+    {
+      "name": "fawazahmed0/currency-api",
+      "date": "2026-10-25",
+      "currencies": [
+        "TWD",
+        "VND"
+      ]
+    }
+  ],
+  "_note": "EUR 기준 환율에서 교차 계산한 값입니다. ECB 미고시 통화는 보조 소스 값이라 기준일이 다를 수 있습니다.",
+  "_fetchedAt": "2026-10-26T00:16:43+00:00",
   "date": "2026-10-23",
   "base": "EUR",
   "rates": {
@@ -24,6 +59,8 @@
     "INR": 106.272,
     "TRY": 55.6715,
     "MXN": 21.0226,
-    "BRL": 5.6485
+    "BRL": 5.6485,
+    "TWD": 36.49819302,
+    "VND": 28937.76484
   }
 }
