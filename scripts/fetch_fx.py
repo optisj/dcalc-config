@@ -41,6 +41,7 @@ CURRENCIES = [
     "HKD", "SGD", "THB", "NZD", "PHP", "IDR", "MYR", "INR", "TRY",
     "MXN", "BRL",
     "TWD", "VND",   # ECB 미고시 → 보조 소스에서 채움
+    "SEK", "NOK", "DKK", "PLN", "CZK", "HUF", "RON", "ISK", "ILS", "ZAR",
 ]
  
 # ⚠️ 기본 UA는 403을 맞는다. 평범한 UA를 쓴다.
