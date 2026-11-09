@@ -26,15 +26,18 @@
     "  - 값을 바꿀 때는 updatedAt도 같이 고친다. 앱 화면에 '기준일'로 노출된다.",
     "",
     "[갱신 캘린더]",
-    "  매년 1월  → insurance (4대보험 요율), minimumWage 시행",
-    "  매년 8월  → minimumWage (다음 해 고시값 확인)",
-    "  수시      → military (국방부 복무기간 개편), labor (근로기준법 개정)"
+    "  매년 1월  → insurance (4대보험 요율), minimumWage 시행, acquisitionTax (지방세법 개정분)",
+    "  매년 8월  → minimumWage (다음 해 고시값 확인), acquisitionTax (행안부 지방세제 개편안 확인)",
+    "  수시      → military (국방부 복무기간 개편), labor (근로기준법 개정)",
+    "  매년 12월 → holdingTax(재산세 · 종합부동산세).propertyFairRatioOneHouse (1주택 공정시장가액비율 시행령 확인)",
+    "  수시      → brokerage(중개보수 · 복비), stampTax(인지세), transferTax(양도소득세), giftTax(증여세 · 상속세), subscription(청약 가점 · 1순위 ), loanRegulation (법령 개정 시)"
   ],
 
-  "version": 6,
-  "updatedAt": "2026-11-06",
+  "version": 9,
+  "updatedAt": "2026-11-09",
 
   "_app": [
+    "■ app (앱 공지 · 강제 업데이트) — 사용 메뉴: 앱 실행 시 팝업",
     "앱 전역 제어. 코드 배포 없이 사용자에게 메시지를 띄우거나 구버전을 막는다.",
     "",
     "★ forceUpdate와 notice는 완전히 독립이다 ★",
@@ -72,8 +75,8 @@
   ],
 
   "app": {
-    "minSupportedVersionCode": 26110601,
-    "latestVersionCode": 26102601,
+    "minSupportedVersionCode": 26110901,
+    "latestVersionCode": 26110602,
 
     "forceUpdate": {
       "title": "업데이트가 필요합니다",
@@ -90,6 +93,7 @@
   },
 
   "_military": [
+    "■ military (군 복무기간 · 진급) — 사용 메뉴: 전역일 계산",
     "군종별 복무기간과 진급 시점.",
     "months: 총 복무개월. 전역일 = 입대일 + months - 1일",
     "ranks[].cumulativeMonths: 입대일 기준 누적 개월수. 해당 시점에 그 계급이 된다.",
@@ -142,6 +146,7 @@
   ],
 
   "_insurance": [
+    "■ insurance (4대보험 요율) — 사용 메뉴: 4대보험, 연봉 실수령액",
     "4대보험 근로자 부담분 (%). 매년 1월 갱신.",
     "출처: 국민연금공단 / 국민건강보험공단 / 근로복지공단 고시",
     "⚠️ longTermCare(장기요양)만 기준이 다르다. 급여가 아니라 '건강보험료' 대비 비율이다.",
@@ -165,6 +170,7 @@
   },
 
   "_minimumWage": [
+    "■ minimumWage (최저임금) — 사용 메뉴: 주휴수당",
     "최저임금. 매년 8월 고시 → 다음 해 1월 1일 시행.",
     "8월에 고시가 나오더라도 시행일(1월 1일)에 맞춰 교체한다.",
     "monthlyHours: 월 소정근로시간. 주 40시간 기준 209시간이 관행.",
@@ -177,6 +183,7 @@
   },
 
   "_labor": [
+    "■ labor (근로기준법 산정 기준) — 사용 메뉴: 퇴직금, 연차 개수, 주휴수당",
     "근로기준법 기반 산정 규칙. 개정이 드물어 자주 바뀌지는 않는다.",
     "severanceAverageWageMonths: 평균임금 산정 개월수 (근로기준법상 3개월)",
     "annualLeave.firstYearMax: 1년 미만 근로자의 최대 연차 (월 1일씩, 최대 11일)",
@@ -203,6 +210,7 @@
   },
 
   "_tax": [
+    "■ tax (근로소득세 · 소득세 기본세율) — 사용 메뉴: 연봉 실수령액, 양도소득세(누진세율 공유)",
     "연봉 실수령액 계산용 세율·공제 기준.",
     "",
     "⚠️ 소득세는 근로소득 간이세액표(소득세법 시행령 별표2)의 '산식'을 구현한 것이다.",
@@ -228,7 +236,20 @@
     "",
     "[갱신 시점]",
     "  매년 1월  → 4대보험 요율(insurance와 동일하게 맞출 것), 세법 개정분",
-    "  매년 7월  → 국민연금 기준소득월액 상·하한"
+    "  매년 7월  → 국민연금 기준소득월액 상·하한",
+    "",
+    "[2026-11-09 추가 — 근로소득 간이세액표 산식 (소득세법 시행령 별표2)]",
+    "earnedIncomeDeductionTiers: 근로소득공제 구간. 총급여 upTo 이하이면 base + (총급여 − 이전 구간 upTo) × rate%",
+    "  마지막 구간의 upTo 는 무시되고 무한대로 처리된다. 한도는 earnedIncomeDeductionLimit",
+    "specialBase / specialRateLow / specialRateMid / specialRateHigh: 특별소득공제 등 [가족 1명, 2명, 3명 이상]",
+    "  총급여 ≤ specialLowUpTo        : base + 총급여 × RateLow%",
+    "  ≤ specialMidUpTo               : base + 총급여 × RateLow% − (총급여 − specialLowUpTo) × specialMidReduceRate%",
+    "  ≤ specialHighUpTo              : base + 총급여 × RateMid%",
+    "  초과                           : base + 총급여 × RateHigh%",
+    "  specialExtraFrom / specialExtraRate: 3명 이상 가산 (현재 코드상 ≤ specialLowUpTo 구간에만 붙어 사실상 0 — 원문 대조 필요)",
+    "creditThreshold / creditRateLow / creditRateHigh: 근로소득세액공제 — 산출세액 130만원 이하 55%, 초과분 30%",
+    "creditLimits: 세액공제 한도. 총급여 upTo 이하이면 max(floor, base − (총급여 − 이전 구간 upTo) × reduceRate%)",
+    "defaultMonthlyNonTaxable: 연봉계산기 '월 비과세액' 초기값 = 식대 비과세 한도 (월 20만원)"
   ],
   "tax": {
     "pensionMinBase": 410000,
@@ -246,10 +267,370 @@
       { "upTo": 500000000,  "rate": 40.0, "progressiveDeduction": 25940000 },
       { "upTo": 1000000000, "rate": 42.0, "progressiveDeduction": 35940000 },
       { "upTo": 9999999999, "rate": 45.0, "progressiveDeduction": 65940000 }
+    ],
+    "earnedIncomeDeductionTiers": [
+      { "upTo": 5000000,       "base": 0,        "rate": 70.0 },
+      { "upTo": 15000000,      "base": 3500000,  "rate": 40.0 },
+      { "upTo": 45000000,      "base": 7500000,  "rate": 15.0 },
+      { "upTo": 100000000,     "base": 12000000, "rate": 5.0 },
+      { "upTo": 9999999999999, "base": 14750000, "rate": 2.0 }
+    ],
+    "specialBase": [3100000, 3600000, 5000000],
+    "specialRateLow": [4.0, 4.0, 7.0],
+    "specialRateMid": [1.5, 2.0, 5.0],
+    "specialRateHigh": [0.5, 1.0, 3.0],
+    "specialLowUpTo": 30000000,
+    "specialMidUpTo": 45000000,
+    "specialHighUpTo": 70000000,
+    "specialMidReduceRate": 5.0,
+    "specialExtraFrom": 40000000,
+    "specialExtraRate": 4.0,
+    "creditThreshold": 1300000,
+    "creditRateLow": 55.0,
+    "creditRateHigh": 30.0,
+    "creditLimits": [
+      { "upTo": 33000000,      "base": 740000, "reduceRate": 0.0,  "floor": 740000 },
+      { "upTo": 70000000,      "base": 740000, "reduceRate": 0.8,  "floor": 660000 },
+      { "upTo": 120000000,     "base": 660000, "reduceRate": 50.0, "floor": 500000 },
+      { "upTo": 9999999999999, "base": 500000, "reduceRate": 50.0, "floor": 200000 }
+    ],
+    "defaultMonthlyNonTaxable": 200000
+  },
+
+  "_acquisitionTax": [
+    "■ acquisitionTax (취득세) — 사용 메뉴: 취득세, 매매 비용",
+    "부동산 취득세 계산 기준 (지방세법 / 지방세특례제한법). 금액은 원, 세율은 %.",
+    "AcquisitionTaxRates 데이터 클래스와 1:1 매핑된다.",
+    "",
+    "[주택 유상취득 기본세율]",
+    "  progressiveLower 이하 1% / progressiveUpper 초과 3%",
+    "  그 사이는 (취득가액 × 2/3억 − 3)% — 산식 자체는 코드에 있다.",
+    "",
+    "[중과]",
+    "  heavyRate2: 조정지역 2주택 · 비조정지역 3주택 (현행 8%)",
+    "  heavyRate3: 조정지역 3주택+ · 4주택+ · 법인 · 조정지역 증여 중과 (현행 12%)",
+    "  중과 시 지방교육세 0.4% 고정, 농특세 = (중과세율 − 2) × 10% 는 코드에서 파생한다.",
+    "  heavyExemptStdValue: 시가표준액(공시가) 이 값 이하 주택은 중과 제외 (현행 1억)",
+    "  giftHeavyStdValue: 조정지역 증여 중과 기준 시가표준액 (현행 3억)",
+    "",
+    "[감면] 개인 · 주택 매매 · 중과 아님 · reliefPriceLimit 이하일 때만",
+    "  reliefPriceLimit: 생애최초·출산양육 감면 주택가격 상한 (현행 12억)",
+    "  firstHomeCap: 생애최초 감면 한도 (현행 200만원)",
+    "  firstHomeCapDeclineArea: 인구감소지역 생애최초 한도 (2026.1.1~ 300만원)",
+    "  childbirthCap: 출산·양육 주택 감면 한도 (현행 500만원)",
+    "  생애최초와 출산양육은 중복 불가 → 코드에서 큰 한도를 적용한다.",
+    "",
+    "⚠️ 2026 지방세제 개편안(2026.8 입법예고)이 국회를 통과하면 반영할 것.",
+    "   40세 미만 청년 생애최초 한도 300만원, 주거용 오피스텔 감면 포함 등.",
+    "   청년 한도는 나이 입력이 필요해 '필드 추가 + 코드 수정'이 함께 필요하다.",
+    "⚠️ 조정대상지역 목록은 수시로 바뀌므로 앱은 사용자가 직접 체크하게 한다.",
+    "",
+    "[2026-11-06 추가 — 취득세 계산기가 실제로 읽는 값]",
+    "  lowRate / highRate: 표준세율 구간 하한·상한 세율 (1% / 3%)",
+    "    progressiveLower~Upper 사이는 선형 누진 (법정 산식 (가액×2/3억−3)% 와 동일), 소수 둘째 자리 반올림",
+    "  heavyRate3 는 법인 세율로도 쓰인다 (법인은 주택 수와 무관하게 12%)",
+    "  eduStandardRatio: 표준세율 구간 지방교육세 = 취득세의 x% (10%)",
+    "  eduHeavyRate: 중과 구간 지방교육세 = 과표의 x% (0.4%)",
+    "  ruralStandardRate: 표준세율 구간 농특세 = 과표의 x% (0.2%). 중과는 (세율−2)×10% 로 파생",
+    "  ruralAreaSqm: 이 전용면적(㎡) 초과만 농특세 부과 (85)",
+    "  ⚠️ heavyExemptStdValue ~ childbirthCap 은 아직 계산에 쓰지 않는다 (중과 제외·감면 기능 추가 시 사용)"
+  ],
+  "acquisitionTax": {
+    "progressiveLower": 600000000,
+    "progressiveUpper": 900000000,
+    "heavyRate2": 8.0,
+    "heavyRate3": 12.0,
+    "heavyExemptStdValue": 100000000,
+    "giftHeavyStdValue": 300000000,
+    "reliefPriceLimit": 1200000000,
+    "firstHomeCap": 2000000,
+    "firstHomeCapDeclineArea": 3000000,
+    "childbirthCap": 5000000,
+    "lowRate": 1.0,
+    "highRate": 3.0,
+    "eduStandardRatio": 10.0,
+    "eduHeavyRate": 0.4,
+    "ruralStandardRate": 0.2,
+    "ruralAreaSqm": 85.0
+  },
+
+  "_brokerage": [
+    "■ brokerage (중개보수 · 복비) — 사용 메뉴: 중개보수 (복비), 매매 비용",
+    "부동산 중개보수 상한 (공인중개사법 시행규칙 별표1, 2021.10.19 개정). 금액은 원, 요율은 %.",
+    "houseSale / houseLease: 주택 매매·교환 / 임대차 구간표.",
+    "  under 미만 금액에 rate% 적용, cap 은 한도액 (0 = 한도 없음). 오름차순이어야 한다.",
+    "  마지막 구간의 under 는 무시되고 무한대로 처리된다.",
+    "officetelSale / officetelLease: 오피스텔(전용 85㎡ 이하·주거용 설비) 요율",
+    "otherMax: 상가·토지 등 그 밖의 중개대상물 상한 요율 (이 범위에서 협의)",
+    "monthlyMultiplier / monthlyMultiplierLow / monthlyLowThreshold:",
+    "  월세 거래금액 = 보증금 + 월차임 × 100, 그 값이 5천만원 미만이면 × 70",
+    "vatRate: 일반과세 사무소의 부가가치세율"
+  ],
+  "brokerage": {
+    "houseSale": [
+      {"under": 50000000, "rate": 0.6, "cap": 250000},
+      {"under": 200000000, "rate": 0.5, "cap": 800000},
+      {"under": 900000000, "rate": 0.4, "cap": 0},
+      {"under": 1200000000, "rate": 0.5, "cap": 0},
+      {"under": 1500000000, "rate": 0.6, "cap": 0},
+      {"under": 9999999999999, "rate": 0.7, "cap": 0}
+    ],
+    "houseLease": [
+      {"under": 50000000, "rate": 0.5, "cap": 200000},
+      {"under": 100000000, "rate": 0.4, "cap": 300000},
+      {"under": 600000000, "rate": 0.3, "cap": 0},
+      {"under": 1200000000, "rate": 0.4, "cap": 0},
+      {"under": 1500000000, "rate": 0.5, "cap": 0},
+      {"under": 9999999999999, "rate": 0.6, "cap": 0}
+    ],
+    "officetelSale": 0.5,
+    "officetelLease": 0.4,
+    "otherMax": 0.9,
+    "monthlyMultiplier": 100,
+    "monthlyMultiplierLow": 70,
+    "monthlyLowThreshold": 50000000,
+    "vatRate": 10.0
+  },
+
+  "_stampTax": [
+    "■ stampTax (인지세) — 사용 메뉴: 매매 비용",
+    "부동산 소유권 이전 계약서 인지세 (인지세법 제3조). 계약서 1통 기준 정액.",
+    "houseExemptUpTo: 주택 매매계약서는 이 금액 이하 비과세 (1억)",
+    "tiers: upTo 이하이면 amount. 오름차순. 마지막 구간의 upTo 는 무한대로 처리된다."
+  ],
+  "stampTax": {
+    "houseExemptUpTo": 100000000,
+    "tiers": [
+      {"upTo": 10000000, "amount": 0},
+      {"upTo": 30000000, "amount": 20000},
+      {"upTo": 50000000, "amount": 40000},
+      {"upTo": 100000000, "amount": 70000},
+      {"upTo": 1000000000, "amount": 150000},
+      {"upTo": 9999999999999, "amount": 350000}
     ]
   },
 
+  "_transferTax": [
+    "■ transferTax (양도소득세) — 사용 메뉴: 양도소득세",
+    "주택 양도소득세 (소득세법). 금액은 원, 비율은 %.",
+    "⚠️ 누진세율은 여기 두지 않는다. tax.brackets (연봉계산기 소득세 기본세율)를 그대로 쓴다.",
+    "   지방소득세율도 tax.localTaxRate 를 공유한다. 같은 값을 두 군데 두면 한쪽만 고치는 사고가 난다.",
+    "highPriceLine: 1세대1주택 고가주택 기준 (12억). 이하 비과세, 초과분 비율만 과세",
+    "basicDeduction: 양도소득 기본공제 (250만원)",
+    "exemptMinHoldingYears: 1세대1주택 비과세 최소 보유연수",
+    "longTermMinHoldingYears: 장기보유특별공제 최소 보유연수 (3년)",
+    "longTermGeneralPerYear / Max: 일반 연 2%, 최대 30%",
+    "longTermOneHouseMinResidence: 1세대1주택 공제표(표2) 적용 최소 거주연수 (2년)",
+    "longTermOneHousePerYear / Max: 1세대1주택 보유·거주 각각 연 4%, 각각 최대 40%",
+    "shortRateUnder1Year / shortRateUnder2Year: 주택 단기양도 세율 (70% / 60%)",
+    "⚠️ 다주택 중과는 미반영 (산식 변경이라 코드 수정 필요)"
+  ],
+  "transferTax": {
+    "highPriceLine": 1200000000,
+    "basicDeduction": 2500000,
+    "exemptMinHoldingYears": 2.0,
+    "longTermMinHoldingYears": 3,
+    "longTermGeneralPerYear": 2.0,
+    "longTermGeneralMax": 30.0,
+    "longTermOneHouseMinResidence": 2,
+    "longTermOneHousePerYear": 4.0,
+    "longTermOneHouseMax": 40.0,
+    "shortRateUnder1Year": 70.0,
+    "shortRateUnder2Year": 60.0
+  },
+
+  "_holdingTax": [
+    "■ holdingTax (재산세 · 종합부동산세) — 사용 메뉴: 재산세 · 종부세",
+    "주택 재산세 (지방세법) · 종합부동산세 (종부세법). 금액은 원, 비율은 %.",
+    "propertyGeneral / propertySpecial: 재산세 표준세율 / 1세대1주택 특례세율 누진표",
+    "  upTo 이하에 rate% (과세표준 기준). 마지막 구간의 upTo 는 무한대로 처리된다.",
+    "specialMaxPrice: 특례세율 적용 공시가격 상한 (9억)",
+    "propertyFairRatio: 재산세 공정시장가액비율 일반 (60%)",
+    "propertyFairRatioOneHouse: 1세대1주택 공정시장가액비율 (공시가격 upTo 이하 → rate%)",
+    "  ⚠️ 매년 시행령으로 정한다. 연말 행안부 발표 확인 후 갱신할 것 (현행 43/44/45%)",
+    "cityRate: 도시지역분 (과표의 0.14%) / propertyEduRate: 지방교육세 (재산세의 20%)",
+    "jongDeductionOneHouse / jongDeduction: 종부세 공제 (1세대1주택 12억 / 그 외 9억)",
+    "jongFairRatio: 종부세 공정시장가액비율 (60%)",
+    "jongNormal / jongHeavy: 종부세율 (2주택 이하 / jongHeavyMinHouses 주택 이상)",
+    "jongRuralRate: 농어촌특별세 (종부세의 20%)",
+    "ageCredits / holdingCredits: 1세대1주택 세액공제. min 이상이면 rate% (나이 / 보유연수)",
+    "creditMax: 두 공제 합산 한도 (80%)",
+    "⚠️ 세부담상한은 미반영"
+  ],
+  "holdingTax": {
+    "propertyGeneral": [
+      {"upTo": 60000000, "rate": 0.1},
+      {"upTo": 150000000, "rate": 0.15},
+      {"upTo": 300000000, "rate": 0.25},
+      {"upTo": 9999999999999, "rate": 0.4}
+    ],
+    "propertySpecial": [
+      {"upTo": 60000000, "rate": 0.05},
+      {"upTo": 150000000, "rate": 0.1},
+      {"upTo": 300000000, "rate": 0.2},
+      {"upTo": 9999999999999, "rate": 0.35}
+    ],
+    "specialMaxPrice": 900000000,
+    "propertyFairRatio": 60.0,
+    "propertyFairRatioOneHouse": [
+      {"upTo": 300000000, "rate": 43.0},
+      {"upTo": 600000000, "rate": 44.0},
+      {"upTo": 9999999999999, "rate": 45.0}
+    ],
+    "cityRate": 0.14,
+    "propertyEduRate": 20.0,
+    "jongDeductionOneHouse": 1200000000,
+    "jongDeduction": 900000000,
+    "jongFairRatio": 60.0,
+    "jongNormal": [
+      {"upTo": 300000000, "rate": 0.5},
+      {"upTo": 600000000, "rate": 0.7},
+      {"upTo": 1200000000, "rate": 1.0},
+      {"upTo": 2500000000, "rate": 1.3},
+      {"upTo": 5000000000, "rate": 1.5},
+      {"upTo": 9400000000, "rate": 2.0},
+      {"upTo": 9999999999999, "rate": 2.7}
+    ],
+    "jongHeavy": [
+      {"upTo": 300000000, "rate": 0.5},
+      {"upTo": 600000000, "rate": 0.7},
+      {"upTo": 1200000000, "rate": 1.0},
+      {"upTo": 2500000000, "rate": 2.0},
+      {"upTo": 5000000000, "rate": 3.0},
+      {"upTo": 9400000000, "rate": 4.0},
+      {"upTo": 9999999999999, "rate": 5.0}
+    ],
+    "jongHeavyMinHouses": 3,
+    "jongRuralRate": 20.0,
+    "ageCredits": [
+      {"min": 60, "rate": 20},
+      {"min": 65, "rate": 30},
+      {"min": 70, "rate": 40}
+    ],
+    "holdingCredits": [
+      {"min": 5, "rate": 20},
+      {"min": 10, "rate": 40},
+      {"min": 15, "rate": 50}
+    ],
+    "creditMax": 80
+  },
+
+  "_giftTax": [
+    "■ giftTax (증여세 · 상속세) — 사용 메뉴: 증여세 · 상속세",
+    "증여세 · 상속세 (상속세 및 증여세법). 두 세금은 누진세율(brackets)을 공유한다. 금액은 원, 비율은 %.",
+    "brackets: upTo 이하에 rate% (과세표준). 마지막 구간의 upTo 는 무한대로 처리된다.",
+    "deductionXxx: 증여재산공제 (10년 합산) — 배우자 / 직계존속→성년 / →미성년 / 직계비속 / 기타 친족",
+    "deductionMarriageBirth: 혼인·출산 증여재산공제 (부모→자녀, 평생 1억)",
+    "generationSkipSurcharge / Minor / MinorThreshold: 세대생략 할증 30%, 미성년 + 20억 초과 40%",
+    "filingCredit: 신고세액공제 (산출세액의 3%)",
+    "lumpSum: 상속 일괄공제 (5억) / basicDeduction: 기초공제 (배우자 단독 상속 시, 2억)",
+    "spouseMin / spouseMax: 배우자상속공제 최소·최대 (5억 / 30억)",
+    "financialFullUpTo / Rate / Min / Max: 금융재산상속공제 — 2천만 이하 전액, 초과 시 20% (최소 2천만, 최대 2억)",
+    "cohabitingMax: 동거주택상속공제 한도 (6억)",
+    "⚠️ 세법 개정안(최고세율 인하, 자녀공제 확대 등)이 국회를 통과하면 갱신할 것"
+  ],
+  "giftTax": {
+    "brackets": [
+      {"upTo": 100000000, "rate": 10.0},
+      {"upTo": 500000000, "rate": 20.0},
+      {"upTo": 1000000000, "rate": 30.0},
+      {"upTo": 3000000000, "rate": 40.0},
+      {"upTo": 9999999999999, "rate": 50.0}
+    ],
+    "deductionSpouse": 600000000,
+    "deductionLinealAdult": 50000000,
+    "deductionLinealMinor": 20000000,
+    "deductionDescendant": 50000000,
+    "deductionRelative": 10000000,
+    "deductionMarriageBirth": 100000000,
+    "generationSkipSurcharge": 30.0,
+    "generationSkipSurchargeMinor": 40.0,
+    "generationSkipMinorThreshold": 2000000000,
+    "filingCredit": 3.0,
+    "lumpSum": 500000000,
+    "basicDeduction": 200000000,
+    "spouseMin": 500000000,
+    "spouseMax": 3000000000,
+    "financialFullUpTo": 20000000,
+    "financialRate": 20.0,
+    "financialMin": 20000000,
+    "financialMax": 200000000,
+    "cohabitingMax": 600000000
+  },
+
+  "_subscription": [
+    "■ subscription (청약 가점 · 1순위) — 사용 메뉴: 청약 가점 · 1순위",
+    "청약 1순위 · 가점 (주택공급에 관한 규칙).",
+    "monthsXxx: 1순위 요구 가입기간(개월) = 국민주택 요구 납입 회차",
+    "  투기과열·청약과열 24 / 수도권 12 / 수도권 외 6 / 위축지역 1",
+    "depositsXxx: 민영 예치기준금액(원) [85㎡ 이하, 102㎡ 이하, 135㎡ 이하, 모든 면적] — 별표 1의2",
+    "  지역은 신청자 주민등록 거주지 기준 (서울·부산 / 기타 광역시 / 기타 시·군)",
+    "recognizedCap / recognizedCapOld / capRaisedAt:",
+    "  국민주택 납입인정 회차당 상한. capRaisedAt(yyyy-MM) 회차부터 25만원, 그 전 회차는 10만원",
+    "homelessPerYear / homelessMax: 무주택기간 1년당 2점, 최대 32점",
+    "dependentsBase / PerPerson / Max: 부양가족 0명 5점, 1명당 +5점, 최대 35점",
+    "accountMax: 통장 가입기간 최대 17점 / spouseBonusMax: 배우자 통장 가산 최대 3점"
+  ],
+  "subscription": {
+    "monthsRegulated": 24,
+    "monthsCapital": 12,
+    "monthsNonCapital": 6,
+    "monthsDeclining": 1,
+    "depositsSeoulBusan": [3000000, 6000000, 10000000, 15000000],
+    "depositsMetro": [2500000, 4000000, 7000000, 10000000],
+    "depositsOther": [2000000, 3000000, 4000000, 5000000],
+    "recognizedCap": 250000,
+    "recognizedCapOld": 100000,
+    "capRaisedAt": "2024-11",
+    "homelessPerYear": 2,
+    "homelessMax": 32,
+    "dependentsBase": 5,
+    "dependentsPerPerson": 5,
+    "dependentsMax": 35,
+    "accountMax": 17,
+    "spouseBonusMax": 3
+  },
+
+  "_loanRegulation": [
+    "■ loanRegulation (대출 규제 LTV · DTI · DSR) — 사용 메뉴: 주담대 한도 · DSR",
+    "주택담보대출 규제 (LTV · DTI · DSR).",
+    "roomXxx: 방공제 = 소액임차보증금 최우선변제액 (주택임대차보호법 시행령, 2023.2.21~)",
+    "  서울 / 과밀억제권역·세종·용인·화성·김포 / 광역시·안산·광주·파주·이천·평택 / 그 밖의 지역",
+    "defaultLtv / defaultDti / defaultDsr: 입력 필드 초기값 (%)",
+    "dsrBankLine / dsrNonBankLine: DSR 결과 화면의 규제선 (은행권 40% / 2금융권 50%)",
+    "⚠️ 스트레스 DSR 가산금리는 반기마다 바뀌고 대출 유형별로 달라 사용자가 입력한다"
+  ],
+  "loanRegulation": {
+    "roomSeoul": 55000000,
+    "roomOvercrowded": 48000000,
+    "roomMetro": 28000000,
+    "roomOther": 25000000,
+    "defaultLtv": 70.0,
+    "defaultDti": 60.0,
+    "defaultDsr": 40.0,
+    "dsrBankLine": 40.0,
+    "dsrNonBankLine": 50.0
+  },
+
+  "_rent": [
+    "■ rent (전월세 전환율 법정 상한) — 사용 메뉴: 전월세 전환",
+    "주택임대차보호법 시행령 제9조. 법정 상한 = min(legalMaxRate, 한국은행 기준금리 + legalSpread)",
+    "baseRate: 한국은행 기준금리(%). ⚠️ 금융통화위원회 결정(연 8회)마다 즉시 갱신할 것",
+    "  ⚠️ 2026-11-09 작성 시 2.5 로 넣었다. 업로드 전에 한국은행 발표로 현재 값을 반드시 확인할 것",
+    "legalSpread: 기준금리에 더하는 %p (2020.9.29~ 2.0)",
+    "legalMaxRate: 절대 상한 (10%)",
+    "defaultRate: 전환율 입력 필드 초기값(%). 시장 관행(보통 4~6%)에 맞춰 가끔 조정",
+    "⚠️ 상한은 계약 기간 중·갱신 시 전환에만 적용된다. 신규 계약은 시장에서 자유롭게 정해진다."
+  ],
+  "rent": {
+    "baseRate": 2.5,
+    "legalSpread": 2.0,
+    "legalMaxRate": 10.0,
+    "defaultRate": 5.5
+  },
+
   "_savings": [
+    "■ savings (이자소득세) — 사용 메뉴: 적금 · 예금, 목표 금액 역산",
     "이자소득 과세 구분 (%).",
     "taxNormal: 일반과세 = 소득세 14% + 지방소득세 1.4%",
     "taxPreferred: 세금우대 (조합예탁금 등)",
@@ -261,6 +642,7 @@
   },
 
   "_loan": [
+    "■ loan (대출 기본값) — 사용 메뉴: 중도상환 수수료, 대출 상환(defaultRatePercent)",
     "대출 관련 기본값. 은행·상품마다 달라서 '입력 필드의 초기값' 용도다.",
     "prepaymentFeeRate: 중도상환수수료율. 보통 0.7~1.4% 범위",
     "prepaymentFeePeriodDays: 수수료 부과기간. 통상 3년 = 1095일",
@@ -274,6 +656,7 @@
   },
 
   "_currency": [
+    "■ currency (환율 조회) — 사용 메뉴: 환율 변환, 더치페이 · 팁, 설정",
     "환율 조회 엔드포인트. 이 앱에서 유일한 외부 API 의존이다.",
     "여기에 URL을 둔 이유: 서비스가 중단되거나 주소가 바뀌어도 앱 업데이트 없이 교체할 수 있다.",
     "",
@@ -307,6 +690,7 @@
   },
 
   "_fuel": [
+    "■ fuel (유가 조회) — 사용 메뉴: 유류비 · 전기차 충전비",
     "오피넷(한국석유공사) 평균 유가.",
     "",
     "★ GitHub Actions가 매시간 받아 커밋한 정적 파일을 읽는다 ★",
@@ -332,6 +716,7 @@
   },
 
   "_ads": [
+    "■ ads (광고 노출) — 사용 메뉴: 전면광고 · 앱 오프닝 광고",
     "전면광고 노출 빈도 제어.",
     "",
     "★ 동작 방식 ★",
@@ -359,17 +744,135 @@
     "showOpenAd": false
   },
 
+  "_dashboard": [
+    "■ dashboard (홈 메뉴 노출 제어) — 사용 메뉴: 홈 화면 카드 · 검색 결과 · 최근 사용",
+    "키는 CalculatorCatalog의 route 값이다. true = 노출, false = 미노출.",
+    "",
+    "★ 동작 방식 ★",
+    "  - 여기에 없는 route는 '노출'로 처리한다. 신규 계산기를 추가해도 이 파일을 안 고치면 그냥 보인다.",
+    "  - false로 두면 홈 그리드, 검색 결과, 최근 사용 칩에서 모두 빠진다.",
+    "  - 화면(NavHost route) 자체는 남아 있으므로 위젯·딥링크로 들어오는 경로는 막히지 않는다.",
+    "  - 카테고리의 모든 항목이 false면 카테고리 헤더도 함께 숨겨진다.",
+    "",
+    "[언제 쓰나]",
+    "  계산 오류가 발견된 메뉴를 앱 업데이트 전까지 임시로 내리거나,",
+    "  법령 개정으로 계산 로직이 맞지 않게 된 메뉴를 긴급 차단할 때.",
+    "  ⚠️ 원격 반영은 최대 24시간(TTL) 걸린다. 즉시 차단이 필요하면 강제 업데이트(app)를 함께 검토할 것.",
+    "",
+    "[route ↔ 화면 이름]",
+    "  ── 계산기 · 변환 ──",
+    "  scicalc      : 공학용 계산기",
+    "  unit         : 단위 변환",
+    "  tip          : 더치페이 · 팁",
+    "  currency     : 환율 변환",
+    "  worldtime    : 세계 시간",
+    "  fuel         : 유류비 · 전기차 충전비",
+    "  radix        : 진법 변환",
+    "  body         : 신체지표",
+    "  ── 날짜 ──",
+    "  dday         : D-Day / 기념일",
+    "  military     : 전역일 계산",
+    "  lunar        : 양력 ↔ 음력",
+    "  cycle        : 배란일 · 가임기",
+    "  due          : 출산 예정일",
+    "  datediff     : 날짜 계산",
+    "  age          : 만 나이",
+    "  ── 금융 ──",
+    "  loan         : 대출 상환",
+    "  prepay       : 중도상환 수수료",
+    "  loanlimit    : 주담대 한도 · DSR",
+    "  savings      : 적금 · 예금",
+    "  goal         : 목표 금액 역산",
+    "  ── 부동산 ──",
+    "  brokerage    : 중개보수 (복비)",
+    "  purchasecost : 매매 비용",
+    "  rent         : 전월세 전환",
+    "  pyeongprice  : 평단가",
+    "  rentalyield  : 임대수익률",
+    "  subscription : 청약 가점 · 1순위",
+    "  ── 부동산 세금 ──",
+    "  acqtax       : 취득세",
+    "  transfertax  : 양도소득세",
+    "  holdingtax   : 재산세 · 종부세",
+    "  gifttax      : 증여세 · 상속세",
+    "  ── 노무 ──",
+    "  salary       : 연봉 실수령액",
+    "  severance    : 퇴직금",
+    "  leave        : 연차 개수",
+    "  holiday      : 주휴수당",
+    "  insurance    : 4대보험"
+  ],
+  "dashboard": {
+    "items": {
+      "scicalc": true,
+      "unit": true,
+      "tip": true,
+      "currency": true,
+      "worldtime": true,
+      "fuel": true,
+      "radix": true,
+      "body": true,
+
+      "dday": true,
+      "military": true,
+      "lunar": true,
+      "cycle": true,
+      "due": true,
+      "datediff": true,
+      "age": true,
+
+      "loan": true,
+      "prepay": true,
+      "loanlimit": true,
+      "savings": true,
+      "goal": true,
+
+      "brokerage": true,
+      "purchasecost": true,
+      "rent": true,
+      "pyeongprice": true,
+      "rentalyield": true,
+      "subscription": true,
+
+      "acqtax": true,
+      "transfertax": true,
+      "holdingtax": true,
+      "gifttax": true,
+
+      "salary": true,
+      "severance": true,
+      "leave": true,
+      "holiday": true,
+      "insurance": true
+    }
+  },
+
   "_disclaimers": [
+    "■ disclaimers (면책 · 안내 문구) — 사용 메뉴: 각 계산기 화면 하단",
     "면책·안내 문구를 원격으로 관리한다.",
     "스토어 심사에서 '문구 보완'을 요구받는 일이 잦은데, 여기에 두면 앱 업데이트 없이",
     "즉시 대응할 수 있다. 실무에서 가장 자주 쓰게 되는 항목이다.",
-    "개행이 필요하면 \\n 을 넣는다."
+    "개행이 필요하면 \\n 을 넣는다.",
+    "",
+    "[키 ↔ 사용 화면]",
+    "  health         : 배란일 · 가임기, 출산 예정일",
+    "  legal          : 중도상환 수수료, 퇴직금, 주휴수당",
+    "  lunar          : 양력 ↔ 음력",
+    "  military       : 전역일 계산",
+    "  insurance      : 4대보험",
+    "  acquisitionTax : 취득세",
+    "  realtyTax      : 양도소득세, 재산세 · 종부세, 증여세 · 상속세",
+    "  realty         : 중개보수 (복비), 매매 비용, 청약 가점 · 1순위",
+    "  ※ acquisitionTax · realtyTax · realty 는 비어 있으면 앱 내장 기본 문구가 표시된다."
   ],
   "disclaimers": {
     "health": "본 계산은 평균 주기에 기반한 참고용 추정이며 의학적 조언이 아닙니다. 정확한 판단은 의료 전문가와 상담하세요.",
     "legal": "본 계산은 참고용이며 법적·세무적 효력이 없습니다. 실제 금액은 기관의 산정 기준에 따라 달라질 수 있습니다.",
     "lunar": "음력 변환은 ICU 표준을 따르며, 드물게 한국천문연구원 공식 음력과 1일 차이가 날 수 있습니다.",
     "military": "진급일은 통상 해당 월 1일자로 일괄 시행되어 실제 진급일과 다를 수 있습니다.",
-    "insurance": "근로자 부담분만 계산합니다. 사업주 부담분은 별도이며, 보수월액 상·하한 적용에 따라 실제 공제액이 달라질 수 있습니다."
+    "insurance": "근로자 부담분만 계산합니다. 사업주 부담분은 별도이며, 보수월액 상·하한 적용에 따라 실제 공제액이 달라질 수 있습니다.",
+    "acquisitionTax": "참고용 모의계산입니다. 주택 수 산정·조정대상지역·감면 요건에 따라 실제 세액이 달라질 수 있으니 위택스 또는 관할 지자체에서 확인하세요.",
+    "realtyTax": "본 계산은 2026년 현행 세법을 단순화한 참고용 추정치이며 세무 신고에 사용할 수 없습니다. 감면·특례·중과 여부는 세무 전문가와 상담하세요.",
+    "realty": "본 계산은 참고용 추정치이며 법적 효력이 없습니다. 실제 금액은 계약 조건과 관할 기관 판단에 따라 달라질 수 있습니다."
   }
 }
